@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>测一测 · 你身上的钝感和敏感，哪个更重？</title>
+<style>
+:root{
+  --ink:#2b2b30; --ink-2:#5d5d66; --ink-3:#8b8b96;
+  --line:rgba(43,43,48,.10);
+  --blue:#5b7a8c; --rose:#b4707f;
+  --card:rgba(255,255,255,.74);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;min-height:100%}
+body{
+  font-family:"Songti SC","STZhongsong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+  color:var(--ink);
+  background:
+    radial-gradient(120% 70% at 12% 0%, #fdf3f2 0%, rgba(253,243,242,0) 60%),
+    radial-gradient(110% 60% at 88% 8%, #eef4f8 0%, rgba(238,244,248,0) 55%),
+    linear-gradient(180deg,#fdfbf8 0%,#faf4f3 55%,#f8eef0 100%);
+  min-height:100vh;
+  display:flex; align-items:flex-start; justify-content:center;
+  padding:18px 14px 40px;
+}
+.wrap{width:100%;max-width:480px}
+.card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 18px 50px rgba(90,70,75,.10), 0 1px 0 rgba(255,255,255,.9) inset;
+  border-radius:26px;
+  padding:34px 26px 28px;
+  backdrop-filter:blur(6px);
+  min-height:calc(100vh - 76px);
+  display:flex; flex-direction:column;
+}
+.kicker{font-family:"Helvetica Neue",Arial,sans-serif;letter-spacing:.42em;font-size:11px;color:var(--ink-3);text-align:center;text-transform:uppercase}
+.page-no{font-family:"Times New Roman",serif;font-style:italic;color:var(--ink-3);font-size:14px;text-align:center;margin-top:12px;letter-spacing:.08em}
+h1{font-size:30px;line-height:1.62;font-weight:400;text-align:center;margin:18px 0 6px;letter-spacing:.02em}
+h2{font-size:23px;line-height:1.6;font-weight:400;text-align:center;margin:14px 0 4px}
+.sub{color:var(--ink-3);text-align:center;font-size:14px;letter-spacing:.06em}
+.opts{margin-top:26px;flex:1}
+.opt{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:16px 4px;border-top:1px solid var(--line);
+  cursor:pointer;transition:background .18s,transform .12s;
+}
+.opt:last-child{border-bottom:1px solid var(--line)}
+.opt:active{background:rgba(180,112,127,.06);transform:scale(.995)}
+.opt .letter{
+  font-family:"Times New Roman",serif;font-style:italic;font-size:24px;line-height:1.1;
+  width:30px;flex:0 0 30px;text-align:center;padding-top:2px;
+}
+.opt:nth-child(odd) .letter{color:var(--blue)}
+.opt:nth-child(even) .letter{color:var(--rose)}
+.opt .txt{font-size:17px;line-height:1.72;color:#3a3a42;letter-spacing:.01em}
+.dots{display:flex;gap:9px;justify-content:center;margin-top:22px}
+.dot{width:16px;height:2px;background:rgba(43,43,48,.14);border-radius:2px;transition:all .3s}
+.dot.on{background:var(--rose);width:24px}
+.prog{margin-top:26px}
+.prog .track{height:2px;background:rgba(43,43,48,.10);border-radius:2px;overflow:hidden}
+.prog .fill{height:100%;background:linear-gradient(90deg,#c8b0b6,#b4707f);border-radius:2px;transition:width .28s ease}
+.prog .no{margin-top:8px;text-align:center;font-size:11.5px;letter-spacing:.18em;color:var(--ink-3);font-family:"Helvetica Neue",Arial,sans-serif}
+.btn{
+  display:block;width:100%;margin-top:26px;padding:15px 18px;border-radius:999px;
+  border:1px solid rgba(43,43,48,.16);background:rgba(255,255,255,.9);
+  font-family:inherit;font-size:16px;color:var(--ink);letter-spacing:.12em;cursor:pointer;
+  transition:transform .12s,background .2s;
+}
+.btn:active{transform:scale(.985)}
+.btn.primary{background:linear-gradient(180deg,#3a3a42,#2b2b30);color:#fdfaf7;border-color:transparent}
+.center{text-align:center}
+.cover-hero{margin-top:8px}
+.cover-hero .brand{font-size:46px;line-height:1.3;letter-spacing:.02em;text-align:center;margin:6px 0}
+.cover-hero .brand em{font-style:italic;font-size:26px;color:var(--ink-3);margin:0 10px;font-family:"Times New Roman",serif}
+.cover-hero .brand .a{color:#4f6d7a}
+.cover-hero .brand .b{color:#a8637a}
+.ask{text-align:center;color:var(--ink-2);font-size:15px;line-height:2.1;margin-top:14px}
+.scale{display:flex;align-items:center;gap:10px;margin:26px 6px 8px;color:var(--ink-3);font-size:12px}
+.scale .bar{flex:1;height:1px;background:var(--line);position:relative}
+.scale .bar::after{content:"";position:absolute;left:50%;top:-3px;width:7px;height:7px;background:#fff;border:1px solid rgba(43,43,48,.25);transform:translateX(-50%) rotate(45deg)}
+.hint{text-align:center;color:var(--ink-3);font-size:12.5px;line-height:1.9;margin-top:18px}
+.res-top{text-align:center;margin-top:6px}
+.res-score{font-family:"Times New Roman",serif;font-size:44px;line-height:1;color:var(--ink);letter-spacing:.02em}
+.res-score small{font-size:15px;color:var(--ink-3);letter-spacing:.1em;margin-left:4px}
+.res-name{font-size:30px;margin:14px 0 6px;line-height:1.5}
+.res-tag{color:var(--rose);font-size:14px;letter-spacing:.18em}
+.res-slogan{margin:20px 0 4px;padding:14px 16px;border-radius:14px;background:rgba(180,112,127,.07);color:#6b4a53;font-size:15px;line-height:1.8;text-align:center}
+.blk{margin-top:22px}
+.blk h3{font-size:13px;letter-spacing:.24em;color:var(--ink-3);font-weight:400;margin:0 0 8px;font-family:"Helvetica Neue",Arial,sans-serif}
+.blk p{margin:0;font-size:16px;line-height:1.95;color:#3a3a42}
+.blk p b{font-weight:400;color:var(--rose)}
+.dims{margin-top:24px;border-top:1px solid var(--line);padding-top:18px}
+.dim{display:flex;align-items:center;gap:12px;margin:10px 0;font-size:13px;color:var(--ink-2)}
+.dim span{width:72px;flex:0 0 72px}
+.dim .track{flex:1;height:3px;background:rgba(43,43,48,.09);border-radius:3px;overflow:hidden}
+.dim .fill{height:100%;background:linear-gradient(90deg,#9fb3bd,#b4707f);border-radius:3px}
+.dim b{width:34px;text-align:right;font-weight:400;color:var(--ink-3);font-family:"Helvetica Neue",Arial,sans-serif}
+.two{display:flex;gap:12px;margin-top:18px}
+.mini{flex:1;background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:14px;padding:14px}
+.mini h4{margin:0 0 6px;font-size:12px;letter-spacing:.16em;color:var(--ink-3);font-weight:400;font-family:"Helvetica Neue",Arial,sans-serif}
+.mini p{margin:0;font-size:13.5px;line-height:1.8;color:#4a4a52}
+.foot{margin-top:auto;padding-top:26px;text-align:center;color:var(--ink-3);font-size:11.5px;line-height:1.9}
+.toast{position:fixed;left:50%;bottom:38px;transform:translateX(-50%) translateY(10px);background:rgba(43,43,48,.92);color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;opacity:0;transition:all .28s;pointer-events:none;font-family:"Helvetica Neue",Arial,sans-serif}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.reveal{animation:rv .42s ease both}
+@keyframes rv{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card" id="app"></div></div>
+<div class="toast" id="toast"></div>
+<script type="application/json" id="data">{"meta":{"title":"测一测 · 你身上的钝感和敏感，哪个更重？","subtitle":"24 道题看见你的感受方式","brand":"钝感 OR 敏感","slider":["后知后觉","一点就透"],"cover_lines":["有人羡慕你的\"没事人\"","也有人懂你的\"想太多\""],"cover_ask":"你是慢半拍地受伤，还是先一步地察觉？","disclaimer":"娱乐性质测验，不构成任何专业建议。","dims":{"s":"感知敏锐度","r":"情绪回弹","g":"关系雷达","n":"内耗程度"}},"dims":["s","r","g","n"],"norm":{"s":[7.22,5.539],"r":[9.765,3.73],"g":[9.748,3.003],"n":[12.979,4.242]},"questions":[{"q":"群里有人发了句\"有些人真有意思\"，你的第一反应通常是？","opts":[["没在意，继续忙自己的事",{"s":-2,"n":-1}],["立刻回想最近说过的话",{"s":2,"n":2}],["先看是谁、针对谁，再决定要不要在意",{"s":1,"g":1}],["表面上没反应，心里已经过了最近三天的对话",{"s":1,"n":2}]]},{"q":"别人一句话让你不太舒服，你多久能真的过去？","opts":[["转头就忘",{"s":-1,"r":2,"n":-2}],["当下有点感觉，过一会儿就翻篇",{"r":1}],["会想一会儿，但能自己消化",{"s":1,"n":1}],["会反复回放，几天后还突然想起",{"s":2,"r":-2,"n":2}]]},{"q":"朋友今天状态不太对，你通常是哪种发现方式？","opts":[["基本看不出来，除非她主动说",{"s":-2,"g":-1}],["能感觉气氛有点不对，但不确定",{"g":1}],["很快察觉，会找机会问一句",{"s":1,"g":2}],["她还没开口，你已经知道她在想什么",{"s":2,"g":2}]]},{"q":"收到当面批评，你更难接受的是哪一点？","opts":[["他说得没道理",{"s":-1,"r":2}],["为什么非要当着别人的面说",{"g":1,"n":1}],["明明说的是对的，但语气太重",{"s":1,"n":1}],["他说的每个字，我回去又重新想了一遍",{"s":2,"r":-1,"n":2}]]},{"q":"一个人吃饭时，你更容易在做什么？","opts":[["刷视频看剧，吃得很专注",{"s":-1,"r":1}],["想今天还没做完的事",{"n":1}],["复盘刚才某段对话",{"s":1,"g":1}],["脑子里在自动播放别人说过的某句话",{"s":1,"n":2}]]},{"q":"别人夸你\"心态真好\"，你的真实反应是？","opts":[["确实挺好，我不爱多想",{"s":-1,"r":2}],["看情况，大多数事不值得",{"s":-1,"r":1}],["其实也会想，只是不说",{"s":1,"n":1}],["心想\"你们没看到我晚上什么样\"",{"s":1,"n":2}]]},{"q":"看电影时，你是哪种哭法？","opts":[["很少哭，除非真戳到我",{"s":-1,"r":1}],["会眼眶热，但还能稳住",{"s":1,"g":1}],["容易代入，哭了还缓不过来",{"s":2,"n":1}],["别人哭的时候我才哭",{"s":1,"g":2}]]},{"q":"朋友聚会散场后，你最常做的是？","opts":[["回家就睡，什么都没想",{"s":-2,"r":2}],["简单想一下今天聊了什么",{}],["想自己有没有说错什么",{"g":1,"n":2}],["反复想某个人说的某句话",{"s":1,"g":1,"n":2}]]},{"q":"在意的人回消息变慢了，你会？","opts":[["大概在忙，不往心里去",{"s":-1,"r":2}],["会注意到，但不会马上问",{"g":1}],["会琢磨是不是自己说错话了",{"s":1,"n":2}],["什么都不说，但心里已经演完一场戏",{"s":1,"g":1,"n":2}]]},{"q":"你更容易记住哪一类细节？","opts":[["记不住细节，只记得大意",{"s":-2}],["记得当时的情绪和气氛",{"s":1,"g":1}],["记得对方的表情和语气",{"s":1,"g":2}],["记得原话，还会反复回味",{"s":2,"n":1}]]},{"q":"遇到突然的变动（改计划、临时加活），你的第一感受是？","opts":[["无所谓，怎么都行",{"s":-1,"r":2}],["有点烦，但很快就调整好了",{"r":1}],["需要一点时间缓一下",{"r":-1,"n":1}],["会先觉得被冒犯或被忽略了",{"s":1,"g":1,"n":2}]]},{"q":"别人情绪低落时，你会不会跟着低落？","opts":[["基本不会，我像那个稳定器",{"s":-1,"r":2}],["会被影响一小会儿，但能出来",{"s":1,"r":1}],["容易被带走，需要很久才恢复",{"s":2,"r":-1,"n":1}],["先照顾她，自己的情绪留到晚上",{"s":1,"g":2,"n":2}]]},{"q":"你对\"被误解\"这件事的耐受度是？","opts":[["不太在意，自己清楚就行",{"s":-1,"r":2}],["会解释一次，解释不通就放下",{"r":1}],["会难受，但不会纠缠",{"s":1,"n":1}],["会反复想怎么说，才能不被误解",{"s":1,"n":2}]]},{"q":"走在路上，你对周围的感知更像？","opts":[["只关注目的地",{"s":-2,"r":1}],["会注意到有人情绪不对",{"s":1,"g":1}],["容易被环境和人的状态影响心情",{"s":2,"n":1}],["会记住某张脸、某个瞬间",{"s":1,"g":1}]]},{"q":"做决定时，你更依赖什么？","opts":[["直觉，先做再说",{"s":-1,"r":1}],["逻辑，先把利弊列出来",{"n":-1}],["会想别人会怎么看",{"g":1,"n":1}],["会在脑子里反复模拟各种结果",{"s":1,"n":2}]]},{"q":"一件小事没做好，你会？","opts":[["过去了，下次注意",{"r":2,"n":-2}],["会记一下，但不至于难受",{"r":1}],["会在意一阵子",{"s":1,"n":1}],["会反复回放细节，甚至睡不着",{"s":1,"n":2}]]},{"q":"你更怕哪种场面？","opts":[["无聊的应酬场面",{"s":-1}],["有人当众情绪失控",{"s":1,"g":1}],["空气突然安静，不知道发生了什么",{"s":1,"g":2}],["自己被误解却没法解释",{"s":1,"n":2}]]},{"q":"有人说\"你想太多了\"，你的感觉是？","opts":[["我确实不太想",{"s":-2,"r":2}],["有点被冒犯，但算了",{"r":1}],["会反思是不是自己的问题",{"s":1,"n":2}],["心想\"那是因为你们没看见细节\"",{"s":2,"g":1}]]},{"q":"遇到争执，你的处理方式是？","opts":[["当场说清，说完就翻篇",{"s":-2,"r":2}],["先冷静，再找机会沟通",{"r":1}],["表面让步，心里过不去",{"s":1,"g":1,"n":2}],["把每个字都重新想一遍，找出对方真正的意思",{"s":2,"g":1,"n":1}]]},{"q":"空闲下来的时候，你的脑子通常是？","opts":[["空的，能发呆",{"s":-2,"r":2}],["会想接下来要做什么",{}],["会回放最近发生的事",{"s":1,"n":1}],["很难停下来，总在分析人和事",{"s":1,"n":2}]]},{"q":"你对别人的小情绪有多敏感？","opts":[["不太敏感，除非很明显",{"s":-2,"g":-1,"r":1}],["看得出，但不确定要不要管",{"g":1}],["很快察觉，会忍不住去照顾",{"s":1,"g":2}],["连\"她为什么会这样\"都一起推演出来",{"s":2,"g":2,"n":1}]]},{"q":"一件开心的事，你会？","opts":[["开心一下就过去了",{"s":-1,"r":1}],["会记住那个瞬间",{"s":1}],["会想立刻跟谁分享",{"g":1}],["会反复回味，甚至有点怕失去",{"s":1,"n":1}]]},{"q":"你更像哪一种\"钝\"？","opts":[["真钝，事过之后才知道",{"s":-2,"r":2}],["懒得计较，不是没感觉",{"s":-1,"r":1}],["装钝，心里其实全都记着",{"s":1,"g":1,"n":2}],["选择性钝，只对不重要的人和事",{"g":1,"r":1}]]},{"q":"如果只能听到一句，你更想听哪句？","opts":[["\"跟你在一起真轻松\"",{"r":2}],["\"你懂我\"",{"s":1,"g":2}],["\"你不用那么懂事\"",{"s":1,"n":1}],["\"你看到的，我都看到了\"",{"s":2,"g":1}]]}],"results":[{"key":"dungan","name":"心大得刚刚好","tag":"钝感力选手","color":"#5b7a8c","slogan":"我不是没感觉，我是懒得为不值得的人有感觉","blocks":[["你身上是什么","你身上有一种很稀有的能力：事情来了，你先判断\"这事关我什么\"，然后才决定要不要在意。别人以为你迟钝，其实你是**筛选过才回应**。"],["为什么是你","你的情绪过滤网是天生的，而且保存得很好。大多数人小时候都有，长大后被一次次消耗掉了，你居然还留着。"],["你的隐藏特质","你不是不敏感，是把敏感收了回去——只在自己认定的人面前，才会漏出来。彩蛋：你哭点其实很低，只是很少人见过。"]],"manual":"跟我相处请直说，暗示我会当成\"没事\"。","blind":"容易错过别人隐隐的求助，尤其对方也不擅长直接开口的时候。","t_s":18,"t_r":90,"t_g":40,"t_n":12},{"key":"manbanpai","name":"后知后觉，但后劲很稳","tag":"慢半拍的清醒者","color":"#8c7a5b","slogan":"我不是不在场，我是晚一点才到","blocks":[["你身上是什么","事情发生的时候你没什么反应，过一会儿才回过味来。你的感受是延迟的，但延迟之后给出的判断，往往比当下更准。"],["为什么是你","别人在当下做情绪反应，你在之后做理解。所以你不容易当场失控，也不容易当场错过——只是慢了一拍。"],["你的隐藏特质","你记得很多细节，只是不当时用。彩蛋：你常常在半夜突然想通一件事，然后彻底释然。"]],"manual":"发生什么请提前跟我说，我才能跟上节奏。","blind":"当场的回应太淡，容易被误读成\"不在乎\"。","t_s":38,"t_r":78,"t_g":30,"t_n":28},{"key":"xuanze","name":"只对值得的人有感觉","tag":"选择性敏感","color":"#6b7f6b","slogan":"我的敏感，是有指定对象的","blocks":[["你身上是什么","大部分人和事你都能钝过去，但只要一落到你在意的人身上，你的雷达立刻打开——这不是矛盾，这是分配。"],["为什么是你","你的注意力是有额度的，你把它花在少数人身上。所以别人会觉得你\"看人下菜\"，其实你只是不愿意浪费感受。"],["你的隐藏特质","对陌生人钝、对亲近的人敏，这种落差很少有人理解。彩蛋：你能记住朋友只提过一次的偏好。"]],"manual":"别用\"你怎么这么冷静\"评价我，我只是把热给了别人。","blind":"对还没进入你名单的人，可能错过真正的善意。","t_s":45,"t_r":68,"t_g":60,"t_n":35},{"key":"meishi","name":"你笑一下，什么都过去了","tag":"脸上没事人","color":"#8c6b6b","slogan":"我很好，是句客气话","blocks":[["你身上是什么","你习惯先把气氛稳住，再处理自己。别人看到的永远是\"她好像没事\"，只有你知道那口气一直没咽下去。"],["为什么是你","你把情绪的处理排在了关系后面——先让场面好过，再轮到自己。这不是软弱，是一种很耗电的体面。"],["你的隐藏特质","你的\"没事\"不是真的没事，是\"现在不方便有事\"。彩蛋：你会记得谁在你\"没事\"的时候多问了一句。"]],"manual":"多问一次，我会说真话；只问一次，我会说没事。","blind":"长期把情绪排最后，容易攒成一次谁都没预料到的崩溃。","t_s":32,"t_r":52,"t_g":48,"t_n":62},{"key":"leida","name":"你一进门就知道谁不高兴","tag":"人形情绪雷达","color":"#6b6b8c","slogan":"我什么都感觉到了，只是没说","blocks":[["你身上是什么","你对空气的感知，比大多数人对自己的感知还细。谁在硬撑、谁在生气、谁只是累了，你一进门就知道。"],["为什么是你","你的注意力天然向外——先读环境，再读自己。这让你在关系里很好用，也让你很少被真正接住。"],["你的隐藏特质","你能同时照顾很多人，却很少有自己被照顾的时刻。彩蛋：三个人聊天时，你能听出其中两个人的隔阂。"]],"manual":"不用瞒我，我看得出来，只是会配合你演完。","blind":"容易把别人的情绪当成自己的责任，然后替所有人累。","t_s":82,"t_r":55,"t_g":85,"t_n":45},{"key":"langman","name":"感受得慢，但感受得很深","tag":"迟钝的浪漫主义者","color":"#8c7a6b","slogan":"我大部分时候在走神，偶尔会突然很认真地活一下","blocks":[["你身上是什么","很多事你没什么反应，但某些瞬间会深深刻进去——一段旋律、一句台词、某个下午的光。"],["为什么是你","你的敏感不是覆盖式的，是点状的：平时很钝，遇到对的东西会突然很亮。"],["你的隐藏特质","你收藏夹里存着很多别人看不懂的东西。彩蛋：你会对一件很多年前的小事耿耿于怀，却对昨天的大事毫无感觉。"]],"manual":"不要用\"正常反应\"要求我，我的人生有别的刻度。","blind":"容易错过需要即时回应的场合，被当成\"不在状态\"。","t_s":35,"t_r":50,"t_g":25,"t_n":38},{"key":"neihao","name":"你什么都知道，就是不肯说","tag":"温柔的内耗者","color":"#7a5b6b","slogan":"我不是不计较，我是把账记在了自己身上","blocks":[["你身上是什么","你把所有看到的都收进去，然后自己跟自己开会。表面上是理解，内里是反复的自我审问。"],["为什么是你","你既敏感又在乎关系，于是选了最累的处理方式——不说不闹，自己消化。"],["你的隐藏特质","你的体谅是主动选择，不是天生好脾气。彩蛋：你已经默默原谅过很多次，别人甚至没道歉过的事。"]],"manual":"给我一个不会被评价的安全空间，我才会开口。","blind":"你的沉默会被当成\"没问题\"，于是问题一直留在你这里。","t_s":75,"t_r":32,"t_g":82,"t_n":80},{"key":"huifang","name":"你在脑子里，把今天过了三遍","tag":"回放机型敏感","color":"#5b5b7a","slogan":"我不是放不下，是我的脑子不肯下班","blocks":[["你身上是什么","事情结束了，你的脑子才开始工作。别人已经翻页，你还在同一段对话里找那个\"是不是我哪里不对\"。"],["为什么是你","你的感受系统没有\"结束\"的开关，它一直在后台处理——所以你累，不是因为你事多，是因为你一直在处理已经过去的事。"],["你的隐藏特质","你的复盘能力其实很强，只是几乎全用在了自己身上。彩蛋：你能背出三年前某句让你难受的话。"]],"manual":"别对我说\"别想了\"，陪我把这件事过一遍，我才能过去。","blind":"过度反刍会把一次小摩擦，变成对整段关系的判决书。","t_s":88,"t_r":22,"t_g":62,"t_n":88}]}</script>
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var M = D.meta, QS = D.questions, RS = D.results, DIMS = D.dims, NORM = D.norm;
+  var app = document.getElementById('app');
+  var state = { idx: -1, picks: [] };
+
+  function el(html){ var d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstChild; }
+  function zh(s){
+    var open = true;
+    return String(s).replace(/"/g, function(){ var c = open ? '\u201c' : '\u201d'; open = !open; return c; });
+  }
+  function esc(s){ return zh(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function fmt(s){ return esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>'); }
+
+  function dots(n, on){
+    var pct = Math.round((on + 1) / n * 100);
+    return '<div class="prog"><div class="track"><div class="fill" style="width:'+pct+'%"></div></div>'+
+      '<div class="no">'+String(on+1).padStart(2,'0')+' / '+String(n).padStart(2,'0')+'</div></div>';
+  }
+
+  function renderCover(){
+    var m = M;
+    app.innerHTML =
+      '<div class="kicker">'+esc(m.subtitle)+'</div>'+
+      '<div class="cover-hero">'+
+        '<div class="sub">你身上的</div>'+
+        '<div class="brand"><span class="a">钝感</span><em>or</em><span class="b">敏感</span></div>'+
+        '<h1 style="margin-top:2px">哪个更重？</h1>'+
+      '</div>'+
+      '<div class="scale"><span>'+esc(m.slider[0])+'</span><span class="bar"></span><span>'+esc(m.slider[1])+'</span></div>'+
+      '<div class="ask">'+m.cover_lines.map(esc).join('<br>')+'</div>'+
+      '<div class="ask" style="margin-top:14px;color:#3a3a42">'+esc(m.cover_ask)+'</div>'+
+      '<button class="btn primary" id="start">开 始 测 试</button>'+
+      '<div class="hint">共 '+QS.length+' 道情境题 · 约 2 分钟<br>凭最近的真实反应选，不用想太久</div>'+
+      '<div class="foot">'+esc(m.disclaimer)+'</div>';
+    document.getElementById('start').onclick = function(){ state.idx = 0; state.picks = []; renderQ(); };
+  }
+
+  function renderQ(){
+    var i = state.idx, q = QS[i];
+    var html = '<div class="kicker">Question '+String(i+1).padStart(2,'0')+'</div>'+
+      '<div class="page-no">'+String(i+1).padStart(2,'0')+' / '+String(QS.length).padStart(2,'0')+'</div>'+
+      '<h2>'+esc(q.q)+'</h2><div class="opts">';
+    q.opts.forEach(function(o, k){
+      html += '<div class="opt" data-k="'+k+'"><div class="letter">'+'ABCD'[k]+'</div><div class="txt">'+esc(o[0])+'</div></div>';
+    });
+    html += '</div>'+dots(QS.length, i)+
+      (i>0 ? '<button class="btn" id="back">上 一 题</button>' : '');
+    app.innerHTML = html;
+    app.classList.remove('reveal'); void app.offsetWidth; app.classList.add('reveal');
+    [].forEach.call(app.querySelectorAll('.opt'), function(node){
+      node.onclick = function(){
+        state.picks[i] = parseInt(node.getAttribute('data-k'),10);
+        if(i+1 < QS.length){ state.idx++; renderQ(); } else { renderResult(); }
+      };
+    });
+    var back = document.getElementById('back');
+    if(back) back.onclick = function(){ state.idx--; renderQ(); };
+  }
+
+  function rawScores(picks){
+    var t = {s:0,r:0,g:0,n:0};
+    picks.forEach(function(p, i){
+      var w = QS[i].opts[p][1] || {};
+      DIMS.forEach(function(d){ t[d] += (w[d]||0); });
+    });
+    return t;
+  }
+  function zvec(raw){
+    return DIMS.map(function(d){ return (raw[d] - NORM[d][0]) / NORM[d][1]; });
+  }
+  function targetZ(res){
+    // 结果目标分（0-100）→ 与用户同一标准化尺度：50 分=均值，100 分=+2sd
+    var ts = [res.t_s, res.t_r, res.t_g, res.t_n];
+    return ts.map(function(t){ return (t - 50) / 25; });
+  }
+  function cos(a,b){
+    var na=0,nb=0,s=0;
+    for(var i=0;i<a.length;i++){ s+=a[i]*b[i]; na+=a[i]*a[i]; nb+=b[i]*b[i]; }
+    return s / ((Math.sqrt(na)||1e-9) * (Math.sqrt(nb)||1e-9));
+  }
+  function dimPct(raw, d){
+    var v = 50 + (raw[d]-NORM[d][0])/NORM[d][1]*25;
+    return Math.max(2, Math.min(98, Math.round(v)));
+  }
+
+  function renderResult(){
+    var raw = rawScores(state.picks), zu = zvec(raw);
+    var best = null, bv = -9, bv2 = -9;
+    RS.forEach(function(r){
+      var v = cos(zu, targetZ(r));
+      if(v > bv){ bv2 = bv; best = r; bv = v; } else if(v > bv2){ bv2 = v; }
+    });
+    var conf = Math.max(38, Math.min(99, Math.round(bv*100 - 4)));
+    var h = '<div class="res-top">'+
+      '<div class="kicker">你的感受方式</div>'+
+      '<div class="res-score" style="margin-top:14px">'+conf+'<small>% 匹配</small></div>'+
+      '<div class="res-name">'+esc(best.name)+'</div>'+
+      '<div class="res-tag">'+esc(best.tag)+'</div></div>'+
+      '<div class="res-slogan">'+esc(best.slogan)+'</div>';
+    best.blocks.forEach(function(b){
+      h += '<div class="blk"><h3>'+esc(b[0])+'</h3><p>'+fmt(b[1])+'</p></div>';
+    });
+    h += '<div class="dims">';
+    DIMS.forEach(function(d){
+      var p = dimPct(raw,d);
+      h += '<div class="dim"><span>'+esc(M.dims[d])+'</span><div class="track"><div class="fill" style="width:'+p+'%"></div></div><b>'+p+'</b></div>';
+    });
+    h += '</div><div class="two">'+
+      '<div class="mini"><h4>相处说明书</h4><p>'+esc(best.manual)+'</p></div>'+
+      '<div class="mini"><h4>容易忽略的盲区</h4><p>'+esc(best.blind)+'</p></div>'+
+      '</div>'+
+      '<button class="btn primary" id="copy">复 制 这 句 话 发 朋友</button>'+
+      '<button class="btn" id="again">重 新 测 一 次</button>'+
+      '<div class="foot">'+esc(M.disclaimer)+'<br>测出来是谁，评论区告诉我，我帮你看看</div>';
+    app.innerHTML = h;
+    app.classList.remove('reveal'); void app.offsetWidth; app.classList.add('reveal');
+    window.scrollTo(0,0);
+    document.getElementById('again').onclick = function(){ state.idx = 0; state.picks = []; renderCover(); window.scrollTo(0,0); };
+    document.getElementById('copy').onclick = function(){
+      var txt = '我测出来是「'+best.name+'」——'+best.slogan;
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(function(){ toast('已复制，去发朋友圈'); }, function(){ fallbackCopy(txt); });
+      } else { fallbackCopy(txt); }
+    };
+  }
+  function fallbackCopy(txt){
+    var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); toast('已复制，去发朋友圈'); }catch(e){ toast('长按结果文字手动复制'); }
+    document.body.removeChild(ta);
+  }
+  var tid;
+  function toast(msg){
+    var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+    clearTimeout(tid); tid=setTimeout(function(){ t.classList.remove('show'); }, 1800);
+  }
+
+  renderCover();
+})();
+</script>
+</body>
+</html>
